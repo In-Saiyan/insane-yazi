@@ -1,0 +1,52 @@
+[opener]
+edit = [
+    { run = 'nvim "$@"', block = true, desc = "Neovim" },
+    { run = 'code "$@"', orphan = true, desc = "VS Code" }
+]
+
+play = [
+    { run = 'mpv "$@"', orphan = true, desc = "mpv" },
+    { run = 'vlc "$@"', orphan = true, desc = "VLC" }
+]
+
+browser = [
+    { run = 'zen-browser "$@"', orphan = true, desc = "Zen Browser" }
+]
+
+debug = [
+    { run = 'gdb "$@"', block = true, desc = "GDB" }
+]
+
+inspect = [
+    { run = 'if [ -d "$1" ]; then echo "Cannot inspect a directory." | less; else checksec file "$1" 2>&1 | less; fi', block = true, desc = "checksec" },
+    { run = 'exiftool "$@" | less', block = true, desc = "ExifTool" },
+    { run = 'file "$@" | less', block = true, desc = "File Info" }
+]
+
+[open]
+rules = [
+    # 1. Catch directories safely so they never hit checksec
+    { mime = "inode/directory", use = [ "edit" ] },
+
+    # 2. HTML files
+    { name = "*.html", use = [ "browser", "edit" ] },
+    { name = "*.htm",  use = [ "browser", "edit" ] },
+
+    # 3. Video & Audio
+    { name = "*.{mkv,mp4,webm,avi,mov,flv}", use = [ "play", "inspect" ] },
+    { name = "*.{mp3,flac,wav,m4a,ogg}",     use = [ "play", "inspect" ] },
+
+    # 4. Fallback MIME rules
+    { mime = "text/html", use = [ "browser", "edit" ] },
+    { mime = "video/*",   use = [ "play", "inspect" ] },
+    { mime = "audio/*",   use = [ "play", "inspect" ] },
+    { mime = "text/*",    use = [ "edit", "inspect" ] },
+
+    # 5. Compiled Binaries & Shared Libraries
+    { mime = "application/x-executable",     use = [ "debug", "inspect" ] },
+    { mime = "application/x-pie-executable", use = [ "debug", "inspect" ] },
+    { mime = "application/x-sharedlib",      use = [ "debug", "inspect" ] },
+
+    # 6. Global Fallback rule
+    { mime = "*", use = [ "inspect" ] }
+]

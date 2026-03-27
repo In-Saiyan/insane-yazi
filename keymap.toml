@@ -1,0 +1,9 @@
+[[mgr.prepend_keymap]]
+on   = "<Enter>"
+run  = "enter"
+desc = "Enter directory (acts like 'l')"
+
+[[mgr.prepend_keymap]]
+on   = "<C-m>"
+run  = "enter"
+desc = "Enter directory (Terminal fallback)"
