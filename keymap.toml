@@ -1,9 +1,9 @@
 [[mgr.prepend_keymap]]
-on   = "<Enter>"
-run  = "enter"
-desc = "Enter directory (acts like 'l')"
+on   = [ "<Enter>" ]
+run  = "plugin smart-enter"
+desc = "Enter directory or open file"
 
 [[mgr.prepend_keymap]]
-on   = "<C-m>"
-run  = "enter"
-desc = "Enter directory (Terminal fallback)"
+on   = [ "<C-m>" ]
+run  = "plugin smart-enter"
+desc = "Enter directory or open file (Terminal fallback)"
