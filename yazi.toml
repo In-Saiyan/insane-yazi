@@ -29,12 +29,12 @@ rules = [
     { mime = "inode/directory", use = [ "edit" ] },
 
     # 2. HTML files
-    { name = "*.html", use = [ "browser", "edit" ] },
-    { name = "*.htm",  use = [ "browser", "edit" ] },
+    { url = "*.html", use = [ "browser", "edit" ] },
+    { url = "*.htm",  use = [ "browser", "edit" ] },
 
     # 3. Video & Audio
-    { name = "*.{mkv,mp4,webm,avi,mov,flv}", use = [ "play", "inspect" ] },
-    { name = "*.{mp3,flac,wav,m4a,ogg}",     use = [ "play", "inspect" ] },
+    { url = "*.{mkv,mp4,webm,avi,mov,flv}", use = [ "play", "inspect" ] },
+    { url = "*.{mp3,flac,wav,m4a,ogg}",     use = [ "play", "inspect" ] },
 
     # 4. Fallback MIME rules
     { mime = "text/html", use = [ "browser", "edit" ] },
